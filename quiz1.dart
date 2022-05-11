@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 var finalScore = 0;
 var questionNumber = 0;
-var quiz = new AnimalQuiz();
+var quiz = new IQuiz();
 
-class AnimalQuiz {
+class IQuiz {
   var questions = [
     "It is a financial plan that helps you to track money, make informed spending decisions and plan for your financial goal",
     "It is the outflow of money or assets to other individual or company as a payment for an item or service",
