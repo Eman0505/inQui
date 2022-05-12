@@ -123,14 +123,14 @@ class IQuiz {
 class Quiz1 extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return new Quiz1State();
+    return Quiz1State();
   }
 }
 
 class Quiz1State extends State<Quiz1> {
   @override
   Widget build(BuildContext context) {
-    return new WillPopScope(
+    return WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
           body: new Container(
@@ -208,53 +208,55 @@ class Quiz1State extends State<Quiz1> {
                     ),
                   ],
                 ),
-                new Padding(padding: EdgeInsets.all(10.0)),
-                new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    //button 3
-                    new MaterialButton(
-                      minWidth: 120.0,
-                      color: Colors.blueGrey,
-                      onPressed: () {
-                        if (quiz.choices[questionNumber][2] ==
-                            quiz.correctAnswers[questionNumber]) {
-                          debugPrint("Correct");
-                          finalScore++;
-                        } else {
-                          debugPrint("Wrong");
-                        }
-                        updateQuestion();
-                      },
-                      child: new Text(
-                        quiz.choices[questionNumber][2],
-                        style:
-                            new TextStyle(fontSize: 20.0, color: Colors.white),
+                if (quiz.choices[questionNumber].length > 2) ...[
+                  new Padding(padding: EdgeInsets.all(10.0)),
+                  new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      //button 3
+                      new MaterialButton(
+                        minWidth: 120.0,
+                        color: Colors.blueGrey,
+                        onPressed: () {
+                          if (quiz.choices[questionNumber][2] ==
+                              quiz.correctAnswers[questionNumber]) {
+                            debugPrint("Correct");
+                            finalScore++;
+                          } else {
+                            debugPrint("Wrong");
+                          }
+                          updateQuestion();
+                        },
+                        child: new Text(
+                          quiz.choices[questionNumber][2],
+                          style: new TextStyle(
+                              fontSize: 20.0, color: Colors.white),
+                        ),
                       ),
-                    ),
 
-                    //button 4
-                    new MaterialButton(
-                      minWidth: 120.0,
-                      color: Colors.blueGrey,
-                      onPressed: () {
-                        if (quiz.choices[questionNumber][3] ==
-                            quiz.correctAnswers[questionNumber]) {
-                          debugPrint("Correct");
-                          finalScore++;
-                        } else {
-                          debugPrint("Wrong");
-                        }
-                        updateQuestion();
-                      },
-                      child: new Text(
-                        quiz.choices[questionNumber][3],
-                        style:
-                            new TextStyle(fontSize: 20.0, color: Colors.white),
+                      //button 4
+                      new MaterialButton(
+                        minWidth: 120.0,
+                        color: Colors.blueGrey,
+                        onPressed: () {
+                          if (quiz.choices[questionNumber][3] ==
+                              quiz.correctAnswers[questionNumber]) {
+                            debugPrint("Correct");
+                            finalScore++;
+                          } else {
+                            debugPrint("Wrong");
+                          }
+                          updateQuestion();
+                        },
+                        child: new Text(
+                          quiz.choices[questionNumber][3],
+                          style: new TextStyle(
+                              fontSize: 20.0, color: Colors.white),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+                ],
                 new Padding(padding: EdgeInsets.all(15.0)),
                 new Container(
                     alignment: Alignment.bottomCenter,
@@ -305,7 +307,7 @@ class Summary extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               new Text(
-                "Final Score: 10",
+                "Final Score: $finalScore",
                 style: new TextStyle(fontSize: 35.0),
               ),
               new Padding(padding: EdgeInsets.all(30.0)),
