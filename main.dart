@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './quiz1.dart';
+import './quiz.dart';
 
 void main() {
   runApp(new MaterialApp(
@@ -31,9 +31,17 @@ class IQuizState extends State<IQuiz> {
             new MaterialButton(
                 height: 50.0,
                 color: Colors.green,
-                onPressed: startQuiz,
+                onPressed: startQuiz1,
                 child: new Text(
                   "Quiz 1",
+                  style: new TextStyle(fontSize: 18.0, color: Colors.white),
+                )),
+                new MaterialButton(
+                height: 50.0,
+                color: Colors.green,
+                onPressed: startQuiz4,
+                child: new Text(
+                  "Quiz 4",
                   style: new TextStyle(fontSize: 18.0, color: Colors.white),
                 ))
           ],
@@ -42,10 +50,17 @@ class IQuizState extends State<IQuiz> {
     );
   }
 
-  void startQuiz() {
+  void startQuiz1() {
     setState(() {
       Navigator.push(
           context, new MaterialPageRoute(builder: (context) => new Quiz1()));
+    });
+  }
+
+  void startQuiz4() {
+    setState(() {
+      Navigator.push(
+          context, new MaterialPageRoute(builder: (context) => new Quiz4()));
     });
   }
 }
