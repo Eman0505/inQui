@@ -36,7 +36,23 @@ class IQuizState extends State<IQuiz> {
                   "Quiz 1",
                   style: new TextStyle(fontSize: 18.0, color: Colors.white),
                 )),
-                new MaterialButton(
+            new MaterialButton(
+                height: 50.0,
+                color: Colors.green,
+                onPressed: startQuiz1,
+                child: new Text(
+                  "Quiz 2",
+                  style: new TextStyle(fontSize: 18.0, color: Colors.white),
+                )),
+            new MaterialButton(
+                height: 50.0,
+                color: Colors.green,
+                onPressed: startQuiz1,
+                child: new Text(
+                  "Quiz 3",
+                  style: new TextStyle(fontSize: 18.0, color: Colors.white),
+                )),
+            new MaterialButton(
                 height: 50.0,
                 color: Colors.green,
                 onPressed: startQuiz4,
@@ -54,6 +70,20 @@ class IQuizState extends State<IQuiz> {
     setState(() {
       Navigator.push(
           context, new MaterialPageRoute(builder: (context) => new Quiz1()));
+    });
+  }
+
+  void startQuiz2() {
+    setState(() {
+      Navigator.push(
+          context, new MaterialPageRoute(builder: (context) => new Quiz2()));
+    });
+  }
+
+  void startQuiz3() {
+    setState(() {
+      Navigator.push(
+          context, new MaterialPageRoute(builder: (context) => new Quiz3()));
     });
   }
 
