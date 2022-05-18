@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -881,6 +882,35 @@ class Quiz1 extends StatefulWidget {
 }
 
 class _Quiz1State extends State<Quiz1> {
+  //timer
+  bool canceltimer = false;
+  late int seconds;
+  @override
+  void initState() {
+    super.initState();
+
+    starttimer();
+  }
+
+  void starttimer() async {
+    seconds = 5;
+    const onesec = Duration(seconds: 1);
+    Timer.periodic(onesec, (Timer t) {
+      setState(() {
+        if (seconds < 1) {
+          t.cancel();
+          randomNumber = Random().nextInt(quiz1.questions.length);
+          updateQuestion();
+          skip++;
+          starttimer();
+        } else if (canceltimer == true) {
+          t.cancel();
+        } else {
+          seconds = seconds - 1;
+        }
+      });
+    });
+  }
   //Generate random number from 0 to number of question
   int randomNumber = Random().nextInt(quiz1.questions.length);
   //widget for choices
@@ -982,7 +1012,7 @@ class _Quiz1State extends State<Quiz1> {
                     children: <Widget>[
                       // Question No. Line
                       new Text(
-                        "Question ${questionNumber}",
+                        "Question ${questionNumber} Timer: ${seconds}",
                         style: TextStyle(
                             fontSize: 21,
                             fontFamily: 'Poppins Medium',
@@ -1057,6 +1087,7 @@ class _Quiz1State extends State<Quiz1> {
                           //call a function after clicking any button
                           updateQuestion(),
                           skip++,
+                          starttimer(),
                         },
                         splashColor: Color.fromRGBO(5, 195, 107, 50),
                       ),
@@ -1075,6 +1106,8 @@ class _Quiz1State extends State<Quiz1> {
         //Proceed to the result page
         Navigator.push(
             context, new MaterialPageRoute(builder: (context) => new Result()));
+        //timer cancel
+        canceltimer = true;
       } else {
         //proceed to next question
         questionNumber++;
@@ -1082,6 +1115,8 @@ class _Quiz1State extends State<Quiz1> {
     });
   }
 }
+
+countdownTimer(Duration duration, Duration duration2) {}
 
 class Quiz2 extends StatefulWidget {
   @override
