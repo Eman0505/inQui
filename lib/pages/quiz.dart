@@ -93,14 +93,14 @@ class _QuizState extends State<Quiz> {
     const onesec = Duration(seconds: 1);
     Timer.periodic(onesec, (Timer t) {
       setState(() {
-        if (timeLeft < 1) {
+        if (canceltimer == true) {
+          t.cancel();
+        } else if (timeLeft < 1) {
           skipQuestion++;
           debugPrint("skip" + skipQuestion.toString());
           t.cancel();
           updateQuestion();
           starttimer();
-        } else if (canceltimer == true) {
-          t.cancel();
         } else {
           timeLeft--;
         }
@@ -260,6 +260,7 @@ class _QuizState extends State<Quiz> {
 
         //Proceed to the result page
       } else {
+        canceltimer = true;
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Result()));
       }
