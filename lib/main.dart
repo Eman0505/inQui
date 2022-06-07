@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:investor_quizapp/pages/historyCategory.dart';
-import 'package:investor_quizapp/pages/home.dart';
-import 'package:investor_quizapp/pages/profile.dart';
-import 'package:investor_quizapp/pages/settings.dart';
+import '/pages/historyCategory.dart';
+import '/pages/home.dart';
+import '/pages/profile.dart';
+import '/pages/settings.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:page_transition/page_transition.dart';
-//import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +16,7 @@ void main() async {
   await Hive.openBox('Investment_and_Portfolio_Management');
   await Hive.openBox('Behavioral_Finance');
   await Hive.openBox('Capital_Market');
+  await Hive.openBox('Profile_data');
   runApp(const MyApp());
 }
 
@@ -64,14 +65,17 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin {
-  //final AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();  //// this will create a instance object of a class
-  //@override
-  //void initState() {
-    //// TODO: implement initState
-    //super.initState();
-    //audioPlayer.open(Audio('assets/music/Enjoy_the_Experience.mp3'));
-  //}
+class _MainPageState extends State<MainPage> {
+  AssetsAudioPlayer _assetsAudioPlayer = AssetsAudioPlayer();
+
+  @override
+  void initState() {
+    super.initState();
+    _assetsAudioPlayer.open(
+      Audio('assets/music/Enjoy_the_Experience.mp3'),
+      autoStart: true,
+    );
+  }
 
   int selectedIndex = 0;
   final screens = [
@@ -87,13 +91,13 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
     return WillPopScope(
       onWillPop: () async {
         final now = DateTime.now();
-        const maxDuration = Duration(seconds: 2);
+        final maxDuration = Duration(seconds: 2);
         final isWarning =
             lastPressed == null || now.difference(lastPressed!) > maxDuration;
 
         if (isWarning) {
           lastPressed = DateTime.now();
-          const snackBar = const SnackBar(
+          final snackBar = SnackBar(
             content: Text('Double Tap to Close App'),
             duration: maxDuration,
           );
@@ -149,12 +153,11 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
     );
   }
 
-  //@override
-  //void dispose() {
-    //// TODO: implement dispose
-    //audioPlayer.dispose();
-    //super.dispose();
-  //}
+  @override
+  void dispose() {
+    _assetsAudioPlayer.dispose();
+    super.dispose();
+  }
 }
 
 // App Color Scheme
